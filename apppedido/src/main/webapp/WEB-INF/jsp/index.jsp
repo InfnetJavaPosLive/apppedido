@@ -38,6 +38,34 @@
 	      </tr>
 	    </tbody>
 	  </table>
+
+	  <h3>Classe: Bebida</h3>	              
+	  <table class="table table-striped">
+	    <thead>
+	      <tr>
+	        <th>Atributo</th>
+	        <th>Tipo</th>
+	        <th>Descrição</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td>gelada</td>
+	        <td>boolean</td>
+	        <td>Indicativo se a bebida é gelada ou não</td>
+	      </tr>
+	      <tr>
+	        <td>tamanho</td>
+	        <td>float</td>
+	        <td>Quantidade de líquido da bebida</td>
+	      </tr>
+	      <tr>
+	        <td>marca</td>
+	        <td>String</td>
+	        <td>Marca da bebida</td>
+	      </tr>
+	    </tbody>
+	  </table>
 	</div>	
 </body>
 </html>
