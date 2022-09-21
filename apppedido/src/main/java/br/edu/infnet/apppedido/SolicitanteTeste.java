@@ -11,22 +11,26 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import br.edu.infnet.apppedido.model.domain.Bebida;
-import br.edu.infnet.apppedido.model.exceptions.TamanhoBebidaInvalidoException;
-import br.edu.infnet.apppedido.model.service.BebidaService;
+import br.edu.infnet.apppedido.model.domain.Solicitante;
+import br.edu.infnet.apppedido.model.domain.Usuario;
+import br.edu.infnet.apppedido.model.exceptions.CpfInvalidoException;
+import br.edu.infnet.apppedido.model.service.SolicitanteService;
 
 @Component
-@Order(3)
-public class BebidaTeste implements ApplicationRunner {
-	
-	@Autowired
-	private BebidaService bebidaService;
+@Order(2)
+public class SolicitanteTeste implements ApplicationRunner {
 
+	@Autowired
+	private SolicitanteService solicitanteService;
+	
 	@Override
 	public void run(ApplicationArguments args) {
 		
+		Usuario usuario = new Usuario();
+		usuario.setId(1);
+
 		String dir = "c:/dev/";
-		String arq = "produtos.txt";
+		String arq = "solicitantes.txt";
 
 		try {
 			try {
@@ -37,24 +41,15 @@ public class BebidaTeste implements ApplicationRunner {
 				while(linha != null) {
 					
 					String[] campos = linha.split(";");
+
+					try {
+						Solicitante solicitante = new Solicitante(campos[0], campos[1], campos[2]);
+						solicitante.setUsuario(usuario);
+						solicitanteService.incluir(solicitante);		
+					} catch (CpfInvalidoException e) {
+						System.out.println("[ERROR] " + e.getMessage());
+					}		
 					
-					if("B".equalsIgnoreCase(campos[0])) {
-						try {
-							Bebida b1 = new Bebida();
-							b1.setCodigo(Integer.valueOf(campos[1]));
-							b1.setNome(campos[2]);
-							b1.setValor(Float.valueOf(campos[3]));
-							b1.setGelada(Boolean.valueOf(campos[4]));
-							b1.setMarca(campos[5]);
-							b1.setTamanho(Float.valueOf(campos[6]));
-							System.out.println("Cálculo de venda: " + b1.calcularVenda());
-							bebidaService.incluir(b1);
-						} catch (TamanhoBebidaInvalidoException e) {
-							System.out.println("[ERROR - BEBIDA] " + e.getMessage());
-						}
-					}
-
-
 					linha = leitura.readLine();
 				}
 

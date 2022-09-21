@@ -11,22 +11,30 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import br.edu.infnet.apppedido.model.domain.Bebida;
-import br.edu.infnet.apppedido.model.exceptions.TamanhoBebidaInvalidoException;
-import br.edu.infnet.apppedido.model.service.BebidaService;
+import br.edu.infnet.apppedido.model.domain.Usuario;
+import br.edu.infnet.apppedido.model.service.UsuarioService;
 
 @Component
-@Order(3)
-public class BebidaTeste implements ApplicationRunner {
+@Order(1)
+public class UsuarioTeste implements ApplicationRunner {
 	
 	@Autowired
-	private BebidaService bebidaService;
-
+	private UsuarioService usuarioService;
+	
+	private Usuario usuario;
+	
 	@Override
-	public void run(ApplicationArguments args) {
-		
+	public void run(ApplicationArguments args) throws Exception {
+
+		usuario = new Usuario();
+		usuario.setEmail("admin@admin.com");
+		usuario.setNome("Administrador");
+		usuario.setSenha("123");
+
+		usuarioService.incluir(usuario);
+
 		String dir = "c:/dev/";
-		String arq = "produtos.txt";
+		String arq = "usuarios.txt";
 
 		try {
 			try {
@@ -37,24 +45,14 @@ public class BebidaTeste implements ApplicationRunner {
 				while(linha != null) {
 					
 					String[] campos = linha.split(";");
+
+					usuario = new Usuario();
+					usuario.setEmail(campos[0]);
+					usuario.setNome(campos[1]);
+					usuario.setSenha(campos[2]);
+
+					usuarioService.incluir(usuario);
 					
-					if("B".equalsIgnoreCase(campos[0])) {
-						try {
-							Bebida b1 = new Bebida();
-							b1.setCodigo(Integer.valueOf(campos[1]));
-							b1.setNome(campos[2]);
-							b1.setValor(Float.valueOf(campos[3]));
-							b1.setGelada(Boolean.valueOf(campos[4]));
-							b1.setMarca(campos[5]);
-							b1.setTamanho(Float.valueOf(campos[6]));
-							System.out.println("Cálculo de venda: " + b1.calcularVenda());
-							bebidaService.incluir(b1);
-						} catch (TamanhoBebidaInvalidoException e) {
-							System.out.println("[ERROR - BEBIDA] " + e.getMessage());
-						}
-					}
-
-
 					linha = leitura.readLine();
 				}
 

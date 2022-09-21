@@ -11,20 +11,20 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import br.edu.infnet.apppedido.model.domain.Bebida;
-import br.edu.infnet.apppedido.model.exceptions.TamanhoBebidaInvalidoException;
-import br.edu.infnet.apppedido.model.service.BebidaService;
+import br.edu.infnet.apppedido.model.domain.Comida;
+import br.edu.infnet.apppedido.model.exceptions.PesoZeradoNegativoException;
+import br.edu.infnet.apppedido.model.service.ComidaService;
 
 @Component
-@Order(3)
-public class BebidaTeste implements ApplicationRunner {
+@Order(4)
+public class ComidaTeste implements ApplicationRunner {
 	
 	@Autowired
-	private BebidaService bebidaService;
+	private ComidaService comidaService;
 
 	@Override
 	public void run(ApplicationArguments args) {
-		
+
 		String dir = "c:/dev/";
 		String arq = "produtos.txt";
 
@@ -38,22 +38,21 @@ public class BebidaTeste implements ApplicationRunner {
 					
 					String[] campos = linha.split(";");
 					
-					if("B".equalsIgnoreCase(campos[0])) {
+					if("C".equalsIgnoreCase(campos[0])) {
 						try {
-							Bebida b1 = new Bebida();
-							b1.setCodigo(Integer.valueOf(campos[1]));
-							b1.setNome(campos[2]);
-							b1.setValor(Float.valueOf(campos[3]));
-							b1.setGelada(Boolean.valueOf(campos[4]));
-							b1.setMarca(campos[5]);
-							b1.setTamanho(Float.valueOf(campos[6]));
-							System.out.println("Cálculo de venda: " + b1.calcularVenda());
-							bebidaService.incluir(b1);
-						} catch (TamanhoBebidaInvalidoException e) {
-							System.out.println("[ERROR - BEBIDA] " + e.getMessage());
+							Comida c1 = new Comida();
+							c1.setCodigo(Integer.valueOf(campos[1]));
+							c1.setNome(campos[2]);
+							c1.setValor(Float.valueOf(campos[3]));
+							c1.setIngredientes(campos[4]);
+							c1.setPeso(Float.valueOf(campos[5]));
+							c1.setVegano(Boolean.valueOf(campos[6]));
+							System.out.println("Cálculo de venda: " + c1.calcularVenda());
+							comidaService.incluir(c1);		
+						} catch (PesoZeradoNegativoException e) {
+							System.out.println("[ERROR - COMIDA] " + e.getMessage());			
 						}
 					}
-
 
 					linha = leitura.readLine();
 				}
