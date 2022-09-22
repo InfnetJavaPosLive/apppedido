@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.infnet.apppedido.model.domain.Bebida;
+import br.edu.infnet.apppedido.model.domain.Usuario;
 import br.edu.infnet.apppedido.model.repository.BebidaRepository;
 import br.edu.infnet.apppedido.model.test.AppImpressao;
 
@@ -25,6 +26,10 @@ public class BebidaService {
 		return (Collection<Bebida>) bebidaRepository.findAll();
 	}
 	
+	public Collection<Bebida> obterLista(Usuario usuario){
+		return (Collection<Bebida>) bebidaRepository.findAll(usuario.getId());
+	}
+
 	public void excluir(Integer id){
 		bebidaRepository.deleteById(id);		
 	}

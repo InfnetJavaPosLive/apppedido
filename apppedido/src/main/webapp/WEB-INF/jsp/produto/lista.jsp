@@ -12,43 +12,28 @@
 
 	<div class="container mt-3">
 
-	  <h3>Cadastramento de produtos</h3>	              
+	  <h3>Cadastramento de produtos</h3>
+
 	  <table class="table table-striped">
 	    <thead>
 	      <tr>
+	      	<th>ID</th>
 	        <th>Nome</th>
 	        <th>Valor</th>
 	        <th>Código</th>
-	        <th>Gelada</th>
-	        <th>Tamanho</th>
-	        <th>Marca</th>
+	        <th></th>
 	      </tr>
 	    </thead>
 	    <tbody>
-	      <tr>
-	        <td>Energ</td>
-	        <td>R$10,00</td>
-	        <td>123</td>
-	        <td>Gelada</td>
-	        <td>500ml</td>
-	        <td>Power</td>
-	      </tr>
-	      <tr>
-	        <td>Coooooofff</td>
-	        <td>R$5,00</td>
-	        <td>234</td>
-	        <td>Quente</td>
-	        <td>100ml</td>
-	        <td>Cafezin</td>
-	      </tr>
-	      <tr>
-	        <td>Chope</td>
-	        <td>R$100,00</td>
-	        <td>345</td>
-	        <td>Gelada</td>
-	        <td>1L</td>
-	        <td>Brahma</td>
-	      </tr>
+		  <c:forEach var="p" items="${listagem}">	
+		      <tr>
+		        <td>${p.id}</td>
+		        <td>${p.nome}</td>
+		        <td>${p.valor}</td>
+		        <td>${p.codigo}</td>
+		        <td><a href="/produto/${p.id}/excluir">excluir</a> </td>
+		      </tr>
+	      </c:forEach>
 	    </tbody>
 	  </table>
 	</div>	

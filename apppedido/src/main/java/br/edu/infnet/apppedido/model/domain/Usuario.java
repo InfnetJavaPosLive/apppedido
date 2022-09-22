@@ -25,6 +25,12 @@ public class Usuario implements IPrinter {
 	@OneToMany
 	@JoinColumn(name = "idUsuario")
 	private List<Solicitante> solicitantes;
+	@OneToMany
+	@JoinColumn(name = "idUsuario")
+	private List<Produto> produtos;
+	@OneToMany
+	@JoinColumn(name = "idUsuario")
+	private List<Pedido> pedidos;
 
 	@Override
 	public void impressao() {
@@ -75,5 +81,21 @@ public class Usuario implements IPrinter {
 
 	public void setSolicitantes(List<Solicitante> solicitantes) {
 		this.solicitantes = solicitantes;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 }

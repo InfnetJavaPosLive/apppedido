@@ -1,11 +1,16 @@
 package br.edu.infnet.apppedido.model.domain;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.edu.infnet.apppedido.interfaces.IPrinter;
@@ -24,6 +29,11 @@ public abstract class Produto implements IPrinter {
 	private String nome;
 	private float valor;
 	private int codigo;
+	@ManyToMany(mappedBy = "produtos")
+	private List<Pedido> pedidos;
+	@ManyToOne
+	@JoinColumn(name = "idUsuario")
+	private Usuario usuario;
 	
 	public abstract float calcularVenda() throws TamanhoBebidaInvalidoException, PesoZeradoNegativoException, QuantidadeIncorretaException;
 
@@ -84,5 +94,21 @@ public abstract class Produto implements IPrinter {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 }

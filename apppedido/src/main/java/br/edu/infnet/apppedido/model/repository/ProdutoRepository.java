@@ -6,11 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import br.edu.infnet.apppedido.model.domain.Bebida;
+import br.edu.infnet.apppedido.model.domain.Produto;
 
 @Repository
-public interface BebidaRepository extends CrudRepository<Bebida, Integer> {
+public interface ProdutoRepository extends CrudRepository<Produto, Integer> {
 
-	@Query("from Bebida b where b.usuario.id = :idUsuario")
-	Collection<Bebida> findAll(Integer idUsuario);
+	@Query("from Produto p where p.usuario.id = :idUsuario")
+	Collection<Produto> findAll(Integer idUsuario);
 }

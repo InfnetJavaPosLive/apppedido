@@ -6,7 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
+import br.edu.infnet.apppedido.model.domain.Usuario;
 import br.edu.infnet.apppedido.model.service.PedidoService;
 import br.edu.infnet.apppedido.model.service.ProdutoService;
 import br.edu.infnet.apppedido.model.service.SolicitanteService;
@@ -22,10 +24,10 @@ public class PedidoController {
 	private ProdutoService produtoService;
 
 	@GetMapping(value = "/pedido")
-	public String telaCadastro(Model model) {
+	public String telaCadastro(Model model, @SessionAttribute("user") Usuario usuario) {
 		
-		model.addAttribute("solicitantes", solicitanteService.obterLista());
-		model.addAttribute("produtos", produtoService.obterLista());
+		model.addAttribute("solicitantes", solicitanteService.obterLista(usuario));
+		model.addAttribute("produtos", produtoService.obterLista(usuario));
 
 		return "pedido/cadastro";
 	}
