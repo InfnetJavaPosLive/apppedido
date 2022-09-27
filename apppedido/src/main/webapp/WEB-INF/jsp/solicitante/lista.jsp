@@ -12,6 +12,12 @@
 
 	<div class="container mt-3">
 
+		<c:if test="${not empty mensagem}">
+			<div class="alert ${tipo}">
+			  <strong>Informação</strong> ${mensagem}
+			</div>
+		</c:if>
+
 	  <h3>Cadastramento de solicitantes</h3>
 	  
 	  <h4><a href="/solicitante">Novo</a></h4>

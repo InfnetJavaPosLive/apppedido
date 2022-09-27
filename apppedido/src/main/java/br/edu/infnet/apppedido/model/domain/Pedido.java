@@ -37,10 +37,12 @@ public class Pedido implements IPrinter {
 	private Usuario usuario;
 	
 	public Pedido() {
-		// TODO Auto-generated constructor stub
+		this.data = LocalDateTime.now();
+		this.web = true;
 	}
 	
 	public Pedido(Solicitante solicitante, Set<Produto> produtos) throws SolicitanteNuloException, PedidoSemProdutoException {
+		this();
 		
 		if(solicitante == null) {
 			throw new SolicitanteNuloException("Impossivel criar um Pedido sem um solicitante!");
@@ -54,7 +56,6 @@ public class Pedido implements IPrinter {
 //			throw new PedidoSemProdutoException("Impossível criar um pedido com menos de um produto!");
 //		}
 		
-		this.data = LocalDateTime.now();		
 		this.solicitante = solicitante;
 		this.produtos = produtos;
 	}

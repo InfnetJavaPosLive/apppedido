@@ -8,6 +8,9 @@
 	<title>AppPedido</title>
 </head>
 <body>
+
+	<c:set var="ativaBotao" value="" />
+
 	<c:import url="/WEB-INF/jsp/menu.jsp"/>	
 
 	<div class="container mt-3">
@@ -20,24 +23,36 @@
 	    </div>
 
 	    <div class="mb-3 mt-3">
-	      <label>Solicitante:</label>
-			<select class="form-control" id="sel1">
-			    <c:forEach var="s" items="${solicitantes}">
-			    	<option>${s.nome}</option>
-			    </c:forEach>
-		    </select>
+	    	<c:if test="${not empty solicitantes}">
+		        <label>Solicitante:</label>
+				<select name="solicitante" class="form-control" id="sel1">
+				    <c:forEach var="s" items="${solicitantes}">
+				    	<option value="${s.id}" >${s.nome}</option>
+				    </c:forEach>
+			    </select>
+		    </c:if>
+	    	<c:if test="${empty solicitantes}">
+		        <label>Não existem solicitantes cadastrados!!!</label>
+		        <c:set var="ativaBotao" value="disabled" />
+		    </c:if>
 	    </div>	    
 
 	    <div class="mb-3 mt-3">
-	      <label>Produtos:</label>
-	      	<c:forEach var="p" items="${produtos}">
-				<div class="checkbox">
-				  <label><input type="checkbox" value=""> ${p.nome}</label>
-				</div>
-			</c:forEach>
+	    	<c:if test="${not empty produtos}">
+		        <label>Produtos:</label>
+		      	<c:forEach var="p" items="${produtos}">
+					<div class="checkbox">
+					  <label><input type="checkbox" name="produtos" value="${p.id}"> ${p.nome}</label>
+					</div>
+				</c:forEach>
+			</c:if>
+	    	<c:if test="${empty produtos}">
+		        <label>Não existem produtos cadastrados!!!</label>
+		        <c:set var="ativaBotao" value="disabled" />
+			</c:if>
 	    </div>	    
 
-	    <button type="submit" class="btn btn-primary">Cadastrar</button>
+	    <button ${ativaBotao} type="submit" class="btn btn-primary">Cadastrar</button>
 	  </form>
 	</div>
 			
